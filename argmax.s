@@ -34,7 +34,7 @@ argmax:
 argmax_loop:
     bge t1, a2, argmax_finish # if(t1 >= a2) then done
     li t4, 4
-    mul t4, t0, t4 #index in bytes, word is 4 so always jump in 4
+    mul t4, t1, t4 #index in bytes, word is 4 so always jump in 4
     add t5, a1, t4 # t4 is adress to value so &array[i]
     lw t6 , 0(t5) # t5 is array[i]
 
