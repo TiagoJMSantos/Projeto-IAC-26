@@ -28,10 +28,10 @@ argmax:
     li t0, 0 #start index
     li t1, 0 #start max index
     lw t2 ,0(a1) #start max value
-
+    ble a2, 1, argmax_error #Verification of error
   # TODO: Implement the argmax function here
 argmax_loop:
-  bge t0, a2, argmax_finish # if(t0 >= s2) then done
+    bge t0, a2, argmax_finish # if(t0 >= s2) then done
     li t3, 4
     mul t3, t0, t3 #index in bytes, word is 4 so always jump in 4
     add t4, a1, t3 # t4 is adress to value so &array[i]
@@ -40,11 +40,13 @@ argmax_loop:
     ble t5, t2, argmax_next #if less then it skips
     mv t2 , t5
     mv t1, t0
-    
-argmax_next:
-  addi t0, t0, 1 # t0 = t1 + 1
+rgmax_next:
+  addi t0, t0, 1; # t0 = t1 + 1
   j argmax_loop
-  
+  argmax_error:
+  li a0, 50
+  ret
+
 argmax_finish:
 
     li a0, 0 #status code 
