@@ -40,16 +40,16 @@ argmax_loop:
     ble t5, t2, argmax_next #if less then it skips
     mv t2 , t5
     mv t1, t0
-rgmax_next:
-  addi t0, t0, 1; # t0 = t1 + 1
+argmax_next:
+  addi t0, t0, 1; # t0 = t0 + 1
   j argmax_loop
-  argmax_error:
+argmax_error:
   li a0, 50
   ret
 
 argmax_finish:
-
     li a0, 0 #status code 
     mv a1 ,t1 #move the max index to a1
+
 argmax_end:
   jr ra               # return to the caller
