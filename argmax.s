@@ -25,7 +25,29 @@ exit:
 #   a1 = index of the largest element
 # ===========================================================================
 argmax:
-  # TODO: Implement the argmax function here
+    li t0, 0 #start index
+    li t1, 0 #start max index
+    lw t2 ,0(a1) #start max value
 
+  # TODO: Implement the argmax function here
+argmax_loop:
+  bge t0, a2, argmax_finish # if(t0 >= s2) then done
+
+    mul t3, t0, 4 #index in bytes, word is 4 so always jump in 4
+    add t4, a1, t3 # t4 is adress to value so &array[i]
+    lw t5 , 0(t4) # t5 is array[i]
+
+    ble t5, t2 , argmax_next #if less then it skips
+    mv t2 , t5
+    mv t1, t0
+rgmax_next:
+  addi t0, t0, 1; # t0 = t1 + 1
+  j argmax_loop
+  
+
+argmax_finish:
+
+    li a0, 0 #status code 
+    mv a1 ,t1 #move the max index to a1
 argmax_end:
   jr ra               # return to the caller
