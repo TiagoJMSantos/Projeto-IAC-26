@@ -29,14 +29,14 @@ argmax:
     li t1, 0 #start index
     li t2, 0 #start max index
     lw t3 ,0(a1) #start max value
-    ble a2, t0, argmax_error #Verification of error
+    blt a2, t0, argmax_error #Verification of error
   # TODO: Implement the argmax function here
 argmax_loop:
     bge t1, a2, argmax_finish # if(t1 >= a2) then done
     li t4, 4
     mul t4, t1, t4 #index in bytes, word is 4 so always jump in 4
-    add t5, a1, t4 # t4 is adress to value so &array[i]
-    lw t6 , 0(t5) # t5 is array[i]
+    add t5, a1, t4 # t5 is adress to value so &array[i]
+    lw t6 , 0(t5) # t6 is array[i]
 
     ble t6, t3, argmax_next #if less then it skips
     mv t3 , t6
