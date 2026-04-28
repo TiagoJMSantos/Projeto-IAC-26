@@ -5,12 +5,12 @@ SIZE:  .word 4
 
 .text
 main:
-  la a1, ARRAY        # a1 = pointer to array
-  lw a2, SIZE         # a2 = number of elements in the array
-  jal ra, argmax      # call argmax function
+    la a1, ARRAY        # a1 = pointer to array
+    lw a2, SIZE         # a2 = number of elements in the array
+    jal ra, argmax      # call argmax function
 exit:
-  li a7, 10           # exit syscall code
-  ecall               # terminate the program
+    li a7, 10           # exit syscall code
+    ecall               # terminate the program
 
 # ==========================================================================
 # FUNCTION: argmax
@@ -26,10 +26,11 @@ exit:
 # ===========================================================================
 argmax:
     li t0, 1
+    blt a2, t0, argmax_error #Verification of error
     li t1, 0 #start index
     li t2, 0 #start max index
     lw t3 ,0(a1) #start max value
-    blt a2, t0, argmax_error #Verification of error
+    
   # TODO: Implement the argmax function here
 argmax_loop:
     bge t1, a2, argmax_finish # if(t1 >= a2) then done
@@ -42,15 +43,15 @@ argmax_loop:
     mv t3 , t6
     mv t2, t1
 argmax_next:
-  addi t1, t1, 1; # t1 = t1 + 1
-  j argmax_loop
+    addi t1, t1, 1 # t1 = t1 + 1
+    j argmax_loop
 argmax_error:
-  li a0, 50
-  ret
+    li a0, 50
+    ret
 
 argmax_finish:
     li a0, 0 #status code 
     mv a1 ,t2 #move the max index to a1
 
 argmax_end:
-  jr ra               # return to the caller
+    jr ra               # return to the caller
