@@ -27,7 +27,6 @@ exit:
 #   a1 = dot product result
 # ===========================================================================
 dot:
-dot:
   li t0, 1              # t0 = 1, usado para testar se o tamanho ? menor que 1
   blt a3, t0, dot_size_error
                         # se a3 < 1, ent?o tamanho inv?lido ? erro 50
